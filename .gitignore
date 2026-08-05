@@ -1,0 +1,21 @@
+# Dependencias
+node_modules/
+
+# Build output
+dist/
+out/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Sistema
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+
+# Config local de electron-store (queda en carpeta de usuario del SO, no en el proyecto, pero por las dudas)
+*.env

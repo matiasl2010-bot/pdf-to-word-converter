@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>PDF a Word</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <header>
+      <h1>PDF → Word</h1>
+      <p class="subtitle">Conversión por lotes a .docx editable</p>
+    </header>
+
+    <section class="banner note">
+      <p><strong>Importante:</strong> esto no hace OCR. Funciona bien con PDFs
+      "nativos" (generados desde Word, Google Docs, etc.). Si el PDF es un
+      escaneo o una foto, el resultado va a salir vacío o con texto ilegible.</p>
+    </section>
+
+    <section id="engine-info" class="engine-info hidden"></section>
+
+    <section id="soffice-warning" class="banner hidden">
+      <p>No se encontró LibreOffice instalado. Es necesario como motor de respaldo (y como único motor si no tenés Word).</p>
+      <div class="banner-actions">
+        <button id="btn-download-lo">Descargar LibreOffice</button>
+        <button id="btn-locate-lo" class="secondary">Ya lo tengo, ubicarlo manualmente</button>
+      </div>
+    </section>
+
+    <section id="no-engines-warning" class="banner hidden">
+      <p>No se encontró ni Word ni LibreOffice. Instalá al menos uno de los dos para poder convertir.</p>
+    </section>
+
+    <section class="dropzone" id="dropzone">
+      <p>Arrastrá archivos .pdf acá</p>
+      <p class="or">— o —</p>
+      <div class="dropzone-buttons">
+        <button id="btn-select-files">Elegir archivos</button>
+        <button id="btn-select-folder" class="secondary">Elegir carpeta</button>
+      </div>
+    </section>
+
+    <section class="file-list-section">
+      <div class="file-list-header">
+        <span id="file-count">0 archivos</span>
+        <button id="btn-clear" class="link">Vaciar lista</button>
+      </div>
+      <ul id="file-list"></ul>
+    </section>
+
+    <section class="output-section">
+      <label>Carpeta de salida:</label>
+      <div class="output-row">
+        <span id="output-path">(misma carpeta que cada archivo)</span>
+        <button id="btn-select-output" class="secondary">Cambiar</button>
+      </div>
+    </section>
+
+    <section class="convert-section">
+      <button id="btn-convert" disabled>Convertir a Word</button>
+      <div id="progress-wrap" class="hidden">
+        <div class="progress-bar"><div id="progress-fill"></div></div>
+        <p id="progress-text"></p>
+      </div>
+    </section>
+
+    <section id="results" class="results hidden">
+      <h2>Resultado</h2>
+      <ul id="results-list"></ul>
+      <button id="btn-open-output" class="secondary">Abrir carpeta de salida</button>
+    </section>
+  </div>
+
+  <script src="renderer.js"></script>
+</body>
+</html>

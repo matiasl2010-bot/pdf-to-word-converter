@@ -1,0 +1,48 @@
+{
+  "name": "pdf-to-word-converter",
+  "version": "1.0.0",
+  "description": "Convertidor de PDF a Word (.docx) usando Microsoft Word o LibreOffice headless",
+  "main": "main.js",
+  "author": "Matias",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --win",
+    "dist:portable": "electron-builder --win portable",
+    "dist:installer": "electron-builder --win nsis",
+    "update-index": "node update-index.js"
+  },
+  "dependencies": {
+    "electron-store": "^8.2.0"
+  },
+  "devDependencies": {
+    "electron": "^30.0.0",
+    "electron-builder": "^24.13.3"
+  },
+  "build": {
+    "appId": "com.matias.pdftoword",
+    "productName": "PDF a Word",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "src/**/*",
+      "scripts/**/*",
+      "package.json"
+    ],
+    "asar": false,
+    "win": {
+      "target": [
+        { "target": "nsis", "arch": ["x64"] },
+        { "target": "portable", "arch": ["x64"] }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true
+    }
+  }
+}

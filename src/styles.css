@@ -1,0 +1,224 @@
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  background: #1b1d23;
+  color: #e8e9ed;
+}
+
+.app {
+  padding: 24px 28px 32px;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+header h1 {
+  margin: 0 0 2px;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.subtitle {
+  margin: 0 0 20px;
+  color: #9a9da8;
+  font-size: 13px;
+}
+
+.banner {
+  background: #3a2a1a;
+  border: 1px solid #6b4a20;
+  border-radius: 8px;
+  padding: 12px 14px;
+  margin-bottom: 16px;
+  font-size: 13px;
+}
+
+.banner.note {
+  background: #1c2733;
+  border: 1px solid #2d4863;
+}
+
+.banner p { margin: 0 0 8px; }
+.banner.note p { margin: 0; }
+.banner-actions { display: flex; gap: 8px; }
+
+.hidden { display: none !important; }
+
+.engine-info {
+  font-size: 12px;
+  color: #9a9da8;
+  background: #202229;
+  border: 1px solid #2c2f38;
+  border-radius: 8px;
+  padding: 8px 12px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.engine-info .dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #6fd18a;
+  display: inline-block;
+}
+
+.dropzone {
+  border: 2px dashed #454852;
+  border-radius: 10px;
+  padding: 32px 16px;
+  text-align: center;
+  margin-bottom: 20px;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.dropzone.drag-over {
+  border-color: #5b8def;
+  background: #202537;
+}
+
+.dropzone p { margin: 4px 0; color: #c7c9d1; }
+.dropzone .or { color: #6c6f7a; font-size: 12px; }
+
+.dropzone-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 12px;
+}
+
+button {
+  background: #5b8def;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 9px 16px;
+  font-size: 13px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+button:hover { background: #4a78d4; }
+button:disabled { background: #3a3d47; color: #77798280; cursor: not-allowed; }
+
+button.secondary {
+  background: #2c2f38;
+  color: #d6d8de;
+  border: 1px solid #454852;
+}
+button.secondary:hover { background: #363943; }
+
+button.link {
+  background: none;
+  color: #8a97ff;
+  padding: 0;
+  font-size: 12px;
+}
+button.link:hover { background: none; text-decoration: underline; }
+
+.file-list-section { margin-bottom: 18px; }
+
+.file-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+  font-size: 12px;
+  color: #9a9da8;
+}
+
+#file-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 180px;
+  overflow-y: auto;
+  border: 1px solid #2c2f38;
+  border-radius: 8px;
+}
+
+#file-list li {
+  padding: 8px 12px;
+  font-size: 13px;
+  border-bottom: 1px solid #2c2f38;
+  display: flex;
+  justify-content: space-between;
+}
+#file-list li:last-child { border-bottom: none; }
+#file-list li span.remove {
+  color: #77798280;
+  cursor: pointer;
+}
+#file-list li span.remove:hover { color: #e8e9ed; }
+
+.output-section { margin-bottom: 20px; font-size: 13px; }
+.output-section label { display: block; margin-bottom: 6px; color: #9a9da8; }
+
+.output-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  background: #202229;
+  border: 1px solid #2c2f38;
+  border-radius: 8px;
+  padding: 8px 12px;
+}
+
+#output-path {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #c7c9d1;
+}
+
+.convert-section { text-align: center; margin-bottom: 20px; }
+#btn-convert { width: 100%; padding: 12px; font-size: 14px; }
+
+#progress-wrap { margin-top: 14px; }
+
+.progress-bar {
+  background: #2c2f38;
+  border-radius: 6px;
+  height: 8px;
+  overflow: hidden;
+}
+
+#progress-fill {
+  background: #5b8def;
+  height: 100%;
+  width: 0%;
+  transition: width 0.2s;
+}
+
+#progress-text {
+  font-size: 12px;
+  color: #9a9da8;
+  margin: 6px 0 0;
+}
+
+.results {
+  border-top: 1px solid #2c2f38;
+  padding-top: 16px;
+}
+
+.results h2 { font-size: 15px; margin: 0 0 10px; }
+
+#results-list {
+  list-style: none;
+  margin: 0 0 12px;
+  padding: 0;
+  font-size: 13px;
+}
+
+#results-list li {
+  padding: 6px 0;
+  display: flex;
+  gap: 8px;
+}
+
+.ok { color: #6fd18a; }
+.fail { color: #e5766f; }
