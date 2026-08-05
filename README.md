@@ -26,7 +26,7 @@ falta una herramienta distinta (con motor OCR tipo Tesseract).
 
 ## 2. Poner el proyecto en marcha
 
-Movés la carpeta `pdf-to-word-converter` a `D:\proyectos claude\`, abrís una
+abrís una
 terminal ahí y corrés:
 
 ```bash
