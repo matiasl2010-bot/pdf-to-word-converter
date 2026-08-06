@@ -11,7 +11,11 @@ $i = 0
 $word = $null
 try {
   $word = New-Object -ComObject Word.Application
-  $word.Visible = $false
+  # Visible = $true a proposito, aunque la ventana moleste: al abrir un PDF, Word
+  # muestra el dialogo de "PDF Reflow", que DisplayAlerts = 0 no suprime. Con la
+  # ventana oculta el dialogo existe igual pero nadie puede contestarlo y la
+  # llamada COM queda colgada para siempre (probado: minimizarla tampoco alcanza).
+  $word.Visible = $true
   $word.DisplayAlerts = 0
 } catch {
   Write-Output "FATAL:No se pudo iniciar Word: $($_.Exception.Message)"
