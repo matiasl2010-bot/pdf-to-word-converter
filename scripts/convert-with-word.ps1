@@ -22,7 +22,9 @@ $results = @()
 
 foreach ($job in $jobs) {
   $i++
-  Write-Output "PROGRESS:$i:$total:$($job.input)"
+  # ${i} y no $i: PowerShell lee "$i:" como variable con unidad (estilo $env:PATH)
+  # y el script entero deja de parsear.
+  Write-Output "PROGRESS:${i}:${total}:$($job.input)"
 
   $doc = $null
   try {
