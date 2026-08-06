@@ -152,7 +152,15 @@ ipcMain.handle('select-output-folder', async () => {
 });
 
 ipcMain.handle('open-folder', async (_event, folderPath) => {
-  shell.openPath(folderPath);
+  // Solo se abren carpetas: shell.openPath sobre un .exe lo ejecutaria, y la
+  // ruta llega desde el renderer.
+  try {
+    if (typeof folderPath !== 'string') return;
+    if (!fs.statSync(folderPath).isDirectory()) return;
+    shell.openPath(folderPath);
+  } catch (e) {
+    // ruta inexistente o inaccesible: no se abre nada
+  }
 });
 
 // ---- Conversión ----
@@ -234,9 +242,16 @@ function convertBatchWithWord(files, outputDir, onProgress) {
   });
 }
 
-ipcMain.handle('convert-files', async (event, { files, outputDir, preferWord, wordPath, sofficePath }) => {
+ipcMain.handle('convert-files', async (event, { files, outputDir, preferWord }) => {
   const send = (progress) => event.sender.send('conversion-progress', progress);
   let results = [];
+
+  // Las rutas de los ejecutables se resuelven aca y no se toman del renderer:
+  // spawn() con una ruta elegida por el renderer seria ejecutar lo que este pida.
+  const [wordPath, sofficePath] = await Promise.all([
+    findWordViaRegistry(),
+    Promise.resolve(findSoffice())
+  ]);
 
   if (preferWord && wordPath) {
     const batch = await convertBatchWithWord(files, outputDir, send);

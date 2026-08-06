@@ -25,7 +25,18 @@ function renderFileList() {
   selectedFiles.forEach((f, idx) => {
     const li = document.createElement('li');
     const name = f.split(/[\\/]/).pop();
-    li.innerHTML = `<span>${name}</span><span class="remove" data-idx="${idx}">✕</span>`;
+
+    // textContent y no innerHTML: el nombre viene de un archivo del disco y en
+    // Linux/macOS puede contener HTML (en Windows el SO ya prohibe < y >).
+    const spanNombre = document.createElement('span');
+    spanNombre.textContent = name;
+
+    const spanQuitar = document.createElement('span');
+    spanQuitar.className = 'remove';
+    spanQuitar.dataset.idx = idx;
+    spanQuitar.textContent = '✕';
+
+    li.append(spanNombre, spanQuitar);
     fileListEl.appendChild(li);
   });
   fileCountEl.textContent = `${selectedFiles.length} archivo${selectedFiles.length === 1 ? '' : 's'}`;
@@ -164,12 +175,12 @@ document.getElementById('btn-convert').addEventListener('click', async () => {
   resultsSection.classList.add('hidden');
   progressFill.style.width = '0%';
 
+  // Las rutas de Word/LibreOffice las resuelve el proceso main: mandarlas desde
+  // aca seria decirle que ejecutable lanzar.
   const results = await window.api.convertFiles({
     files: selectedFiles,
     outputDir: outputFolder || null,
-    preferWord: !!engines.word,
-    wordPath: engines.word,
-    sofficePath: engines.soffice
+    preferWord: !!engines.word
   });
 
   progressWrap.classList.add('hidden');
@@ -183,11 +194,25 @@ function showResults(results) {
     const li = document.createElement('li');
     const name = r.file.split(/[\\/]/).pop();
     const engineLabel = r.engine === 'word' ? 'Word' : r.engine === 'libreoffice' ? 'LibreOffice' : '';
-    if (r.success) {
-      li.innerHTML = `<span class="ok">✓</span><span>${name}${engineLabel ? ` <span style="color:#6c6f7a">(${engineLabel})</span>` : ''}</span>`;
-    } else {
-      li.innerHTML = `<span class="fail">✕</span><span>${name} — error${engineLabel ? ` (${engineLabel})` : ''}</span>`;
+
+    // Igual que en la lista de archivos: el nombre se inserta como texto, nunca
+    // como HTML. El icono y el motor si son literales del codigo.
+    const icono = document.createElement('span');
+    icono.className = r.success ? 'ok' : 'fail';
+    icono.textContent = r.success ? '✓' : '✕';
+
+    const texto = document.createElement('span');
+    texto.textContent = r.success ? name : `${name} — error`;
+
+    li.append(icono, texto);
+
+    if (engineLabel) {
+      const motor = document.createElement('span');
+      motor.style.color = '#6c6f7a';
+      motor.textContent = ` (${engineLabel})`;
+      texto.appendChild(motor);
     }
+
     resultsList.appendChild(li);
   });
   resultsSection.classList.remove('hidden');
